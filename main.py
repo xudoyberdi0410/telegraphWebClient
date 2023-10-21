@@ -8,7 +8,7 @@ def home():
     url = ''
     if request.method == 'POST':
         files = request.files.getlist('files')
-        url = upload.main(images=files, title=request.form['title'], name=request.form['name'])
+        url = upload.main(images=files, title=request.form['title'], name=request.form['name'], author_url=request.form['telegram_url'])
     return render_template('index.html', url=url)
 
 

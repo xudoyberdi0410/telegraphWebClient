@@ -38,10 +38,10 @@ def telegraph_file_upload(images: list[FileStorage]):
         
     return urls
 
-def main(images: list[FileStorage], title: str, name: str):
+def main(images: list[FileStorage], title: str, name: str, author_url: str):
     image_urls = telegraph_file_upload(images)
     content = ''.join([f'<img src="{url}">' for url in image_urls])
-    return createPage(acess_token=access_token, title=title, author_name=name, author_url='https://t.me/khudoberdi0410', content=content)
+    return createPage(acess_token=access_token, title=title, author_name=name, author_url=author_url, content=content)
 
 if __name__ == "__main__":
     main()

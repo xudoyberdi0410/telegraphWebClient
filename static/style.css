@@ -23,12 +23,10 @@
 #title:focus{
     outline: none;
 }
-#yourName{
+#yourName, #telegramUrl{
     border: none;
     margin-bottom: 10px;
     font-size: 0.7rem;
-}
-#yourName{
     outline: none;
 }
 
