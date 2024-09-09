@@ -1,9 +1,6 @@
-import requests
-import json
-from tqdm import tqdm
-import time
 from telegraph import Telegraph
-from werkzeug.datastructures import FileStorage
+
+from parser import parser
 
 access_token = '4a6d722e42a2f20c264786aa49ce32b219260dcd1c6b5f4564f8efb78a39'
 
@@ -17,31 +14,12 @@ def createPage(acess_token: str, title: str, author_name: str, author_url: str, 
     )
     return response['url']
 
-    
-def telegraph_file_upload(images: list[FileStorage]):
-    urls = []
+def main(teletype_url: str, name: str, author_url: str, boosty_auth: str = None):
+    teletype_answer = parser(teletype_url, boosty_auth)
     try:
-        for image in tqdm(images, 'Uploading images to server telegra.ph'):            
-            url = 'https://telegra.ph/upload'
-            response = requests.post(url, files={'file': ('file', image.read(), image.headers['Content-Type'])})
-            
-            telegraph_url = json.loads(response.content)
-            telegraph_url = telegraph_url[0]['src']
-            telegraph_url = f'https://telegra.ph{telegraph_url}'
-            
-            urls.append(telegraph_url)
-            time.sleep(3)
-    except KeyError as e:
-            print(f'Telegraph url: {telegraph_url}\nImage: {image.filename}')
-            print(e)
-            return -1
-        
-    return urls
-
-def main(images: list[FileStorage], title: str, name: str, author_url: str):
-    image_urls = telegraph_file_upload(images)
-    content = ''.join([f'<img src="{url}">' for url in image_urls])
-    return createPage(acess_token=access_token, title=title, author_name=name, author_url=author_url, content=content)
-
+        content = ''.join([f'<img src="{url}">' for url in teletype_answer.urls])
+        return createPage(acess_token=access_token, title=teletype_answer.title, author_name=name, author_url=author_url, content=content)
+    except Exception as ex:
+         return None
 if __name__ == "__main__":
     main()
