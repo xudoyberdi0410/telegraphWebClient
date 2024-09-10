@@ -1,66 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- index.html -->
+{% extends 'base.html' %}
 
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Telegraph</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-</head>
-
-<body>
-	<section class="section">
-		<div class="container" id="main-block">
-			<div class="title is-flex is-justify-content-space-between">
-				<h3>Boosty to Telegraph</h3>
-				<button id="settings-btn" class="button">
-					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="#888888" d="M2.909 26.182h1.939v4.848H2.909z" class="ouiIcon__fillSecondary"/><path fill="#888888" d="M4.848 16.62V0H2.91v16.62a3.879 3.879 0 1 0 1.94 0m-.97 5.683a1.94 1.94 0 1 1 0-3.879a1.94 1.94 0 0 1 0 3.879"/><path fill="#888888" d="M14.545 16.485h1.939V31.03h-1.939z" class="ouiIcon__fillSecondary"/><path fill="#888888" d="M16.485 6.924V0h-1.94v6.924a3.879 3.879 0 1 0 1.94 0m-.97 5.682a1.94 1.94 0 1 1 0-3.879a1.94 1.94 0 0 1 0 3.88"/><path fill="#888888" d="M26.182 26.182h1.939v4.848h-1.939z" class="ouiIcon__fillSecondary"/><path fill="#888888" d="M28.121 16.62V0h-1.94v16.62a3.879 3.879 0 1 0 1.94 0m-.97 5.683a1.94 1.94 0 1 1 0-3.879a1.94 1.94 0 0 1 0 3.879"/></svg>
-				</button>
-				<div class="modal settings-menu" id="settings-menu">
-					<div class="modal-background"></div>
-					
-					<div class="modal-card">
-						<header class="modal-card-head">
-							<p class="modal-card-title">Settings</p>
-							<button class="delete" aria-label="close"></button>
-						</header>
-
-						<section class="modal-card-body">
-							<div class="field">
-								<label class="label">Boosty:</label>
-								<div class="field">
-									<input type="text" id="boosty_input" class="input">
-								</div>
-							</div>
-						  </section>
-						<footer class="modal-card-foot">
-							<div class="buttons">
-							  <button id="save-settings" class="button is-success">Save changes</button>
-							  <button id="cancel-settings" class="button">Cancel</button>
-							</div>
-						</footer>
-					</div>
-				</div>
-			</div>
-			<form action="/api" method="post" id="form" enctype="multipart/form-data">
-				<div class="field">
-					<input class="input" type="text" id="name" name="name" placeholder="Your name" required />
-				</div>
-				<div class="field">
-					<input class="input" type="text" id="username" name="telegram_url" placeholder="Your telegram link" require />
-				</div>
-				<div class="field">
-					<input class="input" type="text" placeholder="Url to teletype" id="teletype_url" name="teletype_url" required/>
-				</div>
-				<div class="block">
-					<button type="submit" onclick="publish_click()" id="btn" class="button is-fullwidth is-primary">Publish</button>
-				</div>
-			</form>
-		</div>
-	</section>
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<script src="{{ url_for('static', filename='app.js') }}"></script>
-</body>
-
-</html>
+{% block content %}
+<form action="/api" method="post" id="form" enctype="multipart/form-data">
+    <div class="field">
+        <input class="input" type="text" id="name" name="name" placeholder="Your name" required />
+    </div>
+    <div class="field">
+        <input class="input" type="text" id="username" name="telegram_url" placeholder="Your telegram link" require />
+    </div>
+    <div class="field">
+        <input class="input" type="text" placeholder="Url to teletype" id="teletype_url" name="teletype_url" required/>
+    </div>
+    <div class="block">
+        <button type="submit" onclick="publish_click()" id="btn" class="button is-fullwidth is-primary">Publish</button>
+    </div>
+</form>
+{% endblock %}
