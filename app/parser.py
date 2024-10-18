@@ -26,8 +26,23 @@ def parser(url: str, boosty_auth: str = None) -> ParserAnswer:
     'sec-ch-ua-mobile': '?0',
     'sec-ch-ua-platform': '"Windows"',
 }
+    if "wamanga" in url:
+        url = url.replace("/read", "/api/read")
     req = requests.get(url=url, headers=headers, cookies=cookies)
     soup = bs(req.text, "lxml")
+    if "teletype" in url:
+        title = soup.find("h1").text.encode('latin1').decode('utf-8')
+        urls = [i['src'] for i in soup.find_all("img")]
+        
+        return ParserAnswer(title=title, urls=urls)
+    elif "wamanga" in url:
+        data = req.json()
+        urls = data.get("chapter").get("pages")
+        title = data.get("chapter").get("full_title")
+        return ParserAnswer(title=title, urls=urls)
+        # with open("./parser_test.json", "w", encoding="utf-8") as f:
+        #     f.write(req.text)
+        return
     script_tag = soup.find("script", {"id": "initial-state"}).text
     script_tag: dict = json.loads(script_tag)
     urls = []
@@ -36,3 +51,7 @@ def parser(url: str, boosty_auth: str = None) -> ParserAnswer:
             urls.append(i["url"])
     title = soup.find("h1").text
     return ParserAnswer(title=title, urls=urls)
+
+if __name__ == "__main__":
+    parser("https://wamanga.ru/read/kanojo-okarishimasu/ru/ch/349#1")
+    

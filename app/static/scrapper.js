@@ -25,10 +25,6 @@ async function start_download(){
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    // Fetch the custom header for file path
-    const filepath = response.headers.get("X-Filename")
-    delete_file(filepath)
-
     const blob = await response.blob()
     const blobURL = URL.createObjectURL(blob)
     const now = new Date()
@@ -39,23 +35,4 @@ async function start_download(){
     download_btn.disabled = false
     download_btn.classList.remove("is-loading")
   }
-}
-
-function delete_file(path) {
-  fetch("/api/scrapper/delete", {
-    method: "POST",  // Use POST for delete
-    body: JSON.stringify({ path }),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`Delete failed, status: ${response.status}`);
-    }
-    console.log("File deleted successfully");
-  })
-  .catch(error => {
-    console.error("Error deleting file:", error);
-  });
 }

@@ -1,6 +1,6 @@
 from telegraph import Telegraph
 
-from parser import parser
+from app.parser import parser
 
 access_token = '4a6d722e42a2f20c264786aa49ce32b219260dcd1c6b5f4564f8efb78a39'
 

@@ -6,9 +6,7 @@ Telegraph Scrapper
 
 {% block content %}
 <form class="is-flex is-flex-wrap-wrap" style="gap: 1rem"  action="/api/scrapper" method="post" id="form_scrapper" enctype="multipart/form-data">
-  <textarea id="urls_list" class="textarea" placeholder="List of link to Telegraph">https://telegra.ph/Dazhe-kopiya-mozhet-vlyubitsya-Glava-4-Poka-my-vmeste-my-mozhem-pojti-kuda-ugodno-08-08
-https://teletype.in/@khudoberdi/ninja_2
-  </textarea>
+  <textarea id="urls_list" class="textarea" placeholder="List of link to Telegraph"></textarea>
   <button class="button is-primary" id="telegraph-download-btn">Download</button>
 </form>
 <script src="{{ url_for('static', filename='scrapper.js') }}"></script>
