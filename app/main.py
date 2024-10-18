@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file, make_response
+from flask import Flask, request, render_template, send_file, make_response,redirect
 import app.upload as upload
 from app.scrapper import run_scraper
 import os
@@ -10,6 +10,7 @@ def home():
 
 @app.route("/scrapper")
 def scrapper():
+    return redirect("/", code=302)
     return render_template("scrapper.html", current_page='scrapper')
 
 @app.route("/api", methods=["POST"])
