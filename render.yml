@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: telegraphWebClient  # Замените на ваше название
+    runtime: python
+    region: oregon  # Можно выбрать другую: frankfurt
+    plan: free  # Или `starter` для платного тарифа
+    envVars:
+      - key: PORT
+        value: 10000  # Render сам задаст порт, просто укажите его
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app  # Если у вас другой файл, укажите его

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<form class="is-flex is-flex-wrap-wrap" style="gap: 1rem"  action="/login" method="post" id="login_form" enctype="multipart/form-data">
+    <input type="text" />
+    <textarea id="urls_list" class="textarea" placeholder="List of link to Telegraph"></textarea>
+  <button class="button is-primary" id="telegraph-download-btn">Download</button>
+</form>
+<script src="{{ url_for('static', filename='auth.js') }}"></script>
+{% endblock %}

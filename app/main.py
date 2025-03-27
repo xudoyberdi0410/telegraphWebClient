@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file, make_response,redirect
+from flask import Flask, request, render_template, send_file, redirect
 import app.upload as upload
 from app.scrapper import run_scraper
 import os
@@ -6,11 +6,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+    # if 'auth' not in request.cookies:
+    #     return redirect("/login", code=302)
     return render_template('index.html', current_page="home")
 
 @app.route("/scrapper")
 def scrapper():
-    return redirect("/", code=302)
+    # return redirect("/", code=302)
     return render_template("scrapper.html", current_page='scrapper')
 
 @app.route("/api", methods=["POST"])
@@ -32,6 +34,10 @@ def scraper_api():
     
     return send_file(archive_url, as_attachment=True)
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "GET":
+        return {"status": "success"}
 
 
 if __name__ == '__main__':

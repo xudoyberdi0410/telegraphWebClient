@@ -9,6 +9,7 @@ from aiofiles import os as aio_os
 
 
 async def fetch_image(session, url, folder_path, index):
+    url = url.replace("wamanga.ru", "wamanga.me")
     async with session.get(url) as response:
         content_type = response.headers.get('Content-Type', 'image/jpeg')
         ext = content_type.split('/')[1] if '/' in content_type else 'jpg'
